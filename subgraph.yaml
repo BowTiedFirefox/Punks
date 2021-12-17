@@ -1,0 +1,44 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: cryptopunks
+    network: kovan
+    source:
+      address: "0x7A4040a2DC1A10beC77dEEA1F13BD8105B9400Ec"
+      abi: cryptopunks
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Assign
+        - Transfer
+        - PunkTransfer
+        - PunkOffered
+        - PunkBidEntered
+        - PunkBidWithdrawn
+        - PunkBought
+        - PunkNoLongerForSale
+      abis:
+        - name: cryptopunks
+          file: ./abis/cryptopunks.json
+      eventHandlers:
+        - event: Assign(indexed address,uint256)
+          handler: handleAssign
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: PunkTransfer(indexed address,indexed address,uint256)
+          handler: handlePunkTransfer
+        - event: PunkOffered(indexed uint256,uint256,indexed address)
+          handler: handlePunkOffered
+        - event: PunkBidEntered(indexed uint256,uint256,indexed address)
+          handler: handlePunkBidEntered
+        - event: PunkBidWithdrawn(indexed uint256,uint256,indexed address)
+          handler: handlePunkBidWithdrawn
+        - event: PunkBought(indexed uint256,uint256,indexed address,indexed address)
+          handler: handlePunkBought
+        - event: PunkNoLongerForSale(indexed uint256)
+          handler: handlePunkNoLongerForSale
+      file: ./src/mapping.ts
