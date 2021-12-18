@@ -12,11 +12,9 @@ import {
 export function handlePunkTransfer(event: PunkTransferEvent): void {
 
   let cryptopunksContract = CryptopunksContract.bind(event.address);
-  let punkAddress = cryptopunksContract.punkIndexToAddress(event.params.punkIndex);
-  let token = Token.load(punkAddress.toHexString());
+  let token = Token.load(event.params.punkIndex.toString());
   if(!token){
-    token = new Token(punkAddress.toHexString());
-    token.punkIndex = event.params.punkIndex;
+    token = new Token(event.params.punkIndex.toString());
   }
   token.owner = event.params.to.toHexString();
   token.save();

@@ -1,6 +1,5 @@
 type Token @entity {
   id: ID!
-  punkIndex: BigInt! # uint256
   owner: Account
 }
 

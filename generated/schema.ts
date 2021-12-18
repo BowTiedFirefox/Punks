@@ -15,8 +15,6 @@ export class Token extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("punkIndex", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -43,15 +41,6 @@ export class Token extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
-  }
-
-  get punkIndex(): BigInt {
-    let value = this.get("punkIndex");
-    return value!.toBigInt();
-  }
-
-  set punkIndex(value: BigInt) {
-    this.set("punkIndex", Value.fromBigInt(value));
   }
 
   get owner(): string | null {
