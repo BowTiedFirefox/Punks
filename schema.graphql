@@ -7,4 +7,7 @@ type Token @entity {
 type Account @entity {
   "Ethereum Address"
   id: ID!
+  "All Punks owned by Account"
+  punksOwned: [Token!] @derivedFrom(field: "owner")
+  punkNumber: BigInt!
 }

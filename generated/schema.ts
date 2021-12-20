@@ -76,6 +76,8 @@ export class Account extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
+
+    this.set("punkNumber", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -102,5 +104,31 @@ export class Account extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get punksOwned(): Array<string> | null {
+    let value = this.get("punksOwned");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set punksOwned(value: Array<string> | null) {
+    if (!value) {
+      this.unset("punksOwned");
+    } else {
+      this.set("punksOwned", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get punkNumber(): BigInt {
+    let value = this.get("punkNumber");
+    return value!.toBigInt();
+  }
+
+  set punkNumber(value: BigInt) {
+    this.set("punkNumber", Value.fromBigInt(value));
   }
 }
