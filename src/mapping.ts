@@ -15,6 +15,7 @@ export function handlePunkTransfer(event: PunkTransferEvent): void {
   let token = Token.load(event.params.punkIndex.toString());
   if(!token){
     token = new Token(event.params.punkIndex.toString());
+    token.punkIndex = event.params.punkIndex
   }
   token.owner = event.params.to.toHexString();
   token.save();
